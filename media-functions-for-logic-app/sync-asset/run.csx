@@ -7,7 +7,6 @@ Input:
 }
 
 */
-
 #r "Newtonsoft.Json"
 #r "Microsoft.WindowsAzure.Storage"
 #r "System.Web"
