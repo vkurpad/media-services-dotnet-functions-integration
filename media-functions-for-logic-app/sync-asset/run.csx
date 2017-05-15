@@ -111,14 +111,18 @@ public static async Task<object> Run(HttpRequestMessage req, TraceWriter log)
 
         CloudBlobContainer assetContainer = destBlobStorage.GetContainerReference(destinationContainerName);
         log.Info($"assetContainer retrieved");
-
+        if(assetContainer == null)
+        {
+            log.Info($"The asset container is null");
+        }
         // Get hold of the destination blobs
         var blobs = assetContainer.ListBlobs();
         log.Info($"blobs retrieved");
 
-
+        log.Info($"The asset container contains {blobs.Count()} items");
         foreach (CloudBlockBlob blob in blobs)
         {
+            log.Info($"Processing blob {blob.Name}");
             var assetFile = asset.AssetFiles.Create(blob.Name);
             assetFile.ContentFileSize = blob.Properties.Length;
             //assetFile.IsPrimary = true;
